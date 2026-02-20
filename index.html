@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>釜山五天四夜：前三天精華行程</title>
+    <!-- 引入 Tailwind CSS CDN 以支援樣式 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* 隱藏橫向滾動條但保持可滾動 */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+    </style>
+</head>
+<body class="bg-slate-50 font-sans text-slate-800">
+
+    <!-- 應用程式將渲染在此容器內 -->
+    <div id="app"></div>
+
+    <script>
+        // 1. 行程資料 (Itinerary Data)
+        const itineraryData = [
+            {
+                day: 1,
+                date: "3/16 (一)",
+                title: "海雲台放鬆與高空夜景",
+                strategy: "★ PASS 策略：本日 10:30 於 Spa Land 啟用，確保效期涵蓋至第三天的 10:29。",
+                events: [
+                    { time: "06:00 - 08:00", title: "抵達釜山機場、前往飯店寄放行李", korean: "어반스테이 서면", stay: "停留15分", mapLink: "https://map.naver.com/p/search/어반스테이%20서면", transport: { public: "金海輕軌(機場站) → 沙上站 轉 地鐵2號線 → 西面站。約45分，₩2,100", uber: "約30分，約₩16,000-18,000" } },
+                    { time: "08:00 - 09:00", title: "早餐：松亭三代豬肉湯飯", korean: "송정3대국밥", stay: "停留60分", mapLink: "https://map.naver.com/p/search/송정3대국밥", transport: { text: "從飯店步行約5-8分鐘至豬肉湯飯街" } },
+                    { time: "09:00 - 10:30", title: "移動至新世界百貨 (戰術性等待)", korean: "신세계백화점 센텀시티점", mapLink: "https://map.naver.com/p/search/신세계백화점%20센텀시티점", note: "抵達後先於百貨外圍休息，勿提早入場", transport: { public: "地鐵2號線(西面站) → Centum City站。約30分，₩1,500", uber: "約20分，約₩12,000" } },
+                    { time: "10:30 - 14:30", title: "新世界 Spa Land", korean: "스파랜드 센텀시티", stay: "停留4小時", isPass: true, passLabel: "PASS 啟用", mapLink: "https://map.naver.com/p/search/스파랜드%20센텀시티", transport: { text: "位於新世界百貨內。10:30 準時刷卡入場。" } },
+                    { time: "14:30 - 15:30", title: "移動與搭乘：天空膠囊列車", korean: "해운대블루라인파크 미포정거장", note: "自費預約 15:00 班次", mapLink: "https://map.naver.com/p/search/해운대블루라인파크%20미포정거장", transport: { public: "地鐵2號線(Centum City站) → 中洞站 → 步行15分至尾浦站。約30分，₩1,500", uber: "約15分，約₩8,000" } },
+                    { time: "15:30 - 16:30", title: "青沙浦拍照 & 踏石展望台", korean: "청사포 / 청사포다릿돌전망대", stay: "各停留30分", mapLink: "https://map.naver.com/p/search/청사포다릿돌전망대", transport: { text: "膠囊列車抵達青沙浦後，沿海岸木棧道步行10-15分鐘至展望台。" } },
+                    { time: "16:30 - 17:00", title: "海邊小火車 (返回尾浦)", korean: "해변열차", isPass: true, passLabel: "PASS 2", transport: { text: "從「踏石展望台站」搭乘海邊小火車返回「尾浦站」。車程約15分。" } },
+                    { time: "17:00 - 18:30", title: "Busan X the SKY", korean: "부산엑스더스카이", stay: "停留1.5小時", isPass: true, passLabel: "PASS 3", mapLink: "https://map.naver.com/p/search/부산엑스더스카이", transport: { text: "從尾浦站步行約5-8分鐘至LCT大樓入口。" } },
+                    { time: "18:30 - 19:30", title: "晚餐：the名品海鮮湯", korean: "더명품해물탕조개구이", stay: "停留60分", mapLink: "https://map.naver.com/p/search/더명품해물탕조개구이", transport: { text: "沿海雲台沙灘步道步行約10-15分鐘。" } },
+                    { time: "19:30 - 20:30", title: "返回西面飯店辦理入住", korean: "어반스테이 서면", transport: { public: "步行至地鐵2號線(海雲台站) → 西面站。約35分，₩1,600", uber: "約35分，約₩20,000" } }
+                ]
+            },
+            {
+                day: 2,
+                date: "3/17 (二)",
+                title: "西釜山經典與東釜山滑車",
+                strategy: "★ 行程策略：本日跨區幅度極大，強烈建議景點間的移動多利用 Uber 節省體力與時間。",
+                events: [
+                    { time: "08:00 - 09:00", title: "早餐：西面商圈咖啡廳/簡餐", transport: { text: "飯店周邊就近用餐" } },
+                    { time: "09:00 - 10:00", title: "移動前往松島", transport: { public: "地鐵1號線(西面站) → 南浦站(8出口) → 轉公車(6/26/30/71) → 岩南洞居民中心下車。約50分", uber: "約25分，約₩14,000" } },
+                    { time: "10:00 - 11:00", title: "松島海上纜車 & 龍宮雲橋", korean: "송도해상케이블카 / 송도용궁구름다리", isPass: true, passLabel: "PASS 4, 5", mapLink: "https://map.naver.com/p/search/송도해상케이블카", transport: { text: "下車後步行至售票處搭乘纜車，抵達對岸後步行至雲橋。" } },
+                    { time: "11:00 - 12:00", title: "海景咖啡廳：EL16.52", korean: "카페 EL16.52", stay: "停留60分", mapLink: "https://map.naver.com/p/search/EL16.52", transport: { text: "纜車岩南公園站旁，步行3分鐘。" } },
+                    { time: "12:00 - 12:30", title: "移動前往甘川洞文化村", transport: { public: "搭乘71號公車 → 西區廳 轉 沙下區1-1號小巴 → 甘川小學。約45分", uber: "約15分，約₩7,000 (強烈建議搭車)" } },
+                    { time: "12:30 - 14:00", title: "甘川洞文化村 & 手翻書", korean: "감천문화마을 / 움직이는사진상점", stay: "停留1.5小時", isPass: true, passLabel: "PASS 6", mapLink: "https://map.naver.com/p/search/움직이는사진상점", transport: { text: "於村內移動、拍照並製作手翻書。可買小吃墊胃。" } },
+                    { time: "14:00 - 14:30", title: "移動前往釜山塔", transport: { public: "沙下區1-1號小巴 → 土城站 轉 地鐵1號線 → 南浦站。約30分", uber: "約15分，約₩6,000" } },
+                    { time: "14:30 - 16:00", title: "釜山塔 (鑽石塔)", korean: "부산타워", stay: "停留1.5小時", isPass: true, passLabel: "PASS 7", mapLink: "https://map.naver.com/p/search/부산타워", transport: { text: "從南浦洞搭乘手扶梯至龍頭山公園。" } },
+                    { time: "16:00 - 17:00", title: "橫跨釜山大移動：前往奧西利亞", transport: { public: "地鐵1號線(南浦站) → 教大站 轉 東海線 → 奧西利亞站。約1小時20分", uber: "約50分，約₩28,000 (唯一能在1小時抵達的方案)" } },
+                    { time: "17:00 - 18:00", title: "Skyline Luge 斜坡滑車", korean: "스카이라인루지 부산", note: "可玩 2 回", isPass: true, passLabel: "PASS 8", mapLink: "https://map.naver.com/p/search/스카이라인루지%20부산", transport: { text: "園區內搭乘吊椅上山、滑車下山。" } },
+                    { time: "18:00 - 18:45", title: "移動前往鑽石灣碼頭", transport: { public: "需轉乘超過1小時，可能趕不上遊艇", uber: "約40分，約₩20,000" } },
+                    { time: "18:45 - 20:30", title: "鑽石灣遊艇 夜間巡航", korean: "다이아몬드베이", note: "事前預約 19:30 班次，務必 19:00 前報到", isPass: true, passLabel: "PASS 9", mapLink: "https://map.naver.com/p/search/다이아몬드베이", transport: { text: "航程約50分鐘，欣賞廣安大橋夜景。" } },
+                    { time: "20:30 - 21:00", title: "返回西面", transport: { public: "步行至地鐵2號線(南川站) → 西面站。約45分", uber: "約25分，約₩13,000" } },
+                    { time: "21:00 - 22:30", title: "晚餐：83 Haechi", korean: "83해치 서면본점", stay: "停留1.5小時", mapLink: "https://map.naver.com/p/search/83해치%20서면본점", transport: { text: "回到西面商圈步行前往。" } }
+                ]
+            },
+            {
+                day: 3,
+                date: "3/18 (三)",
+                title: "樂天世界與機張購物",
+                strategy: "★ PASS 策略：務必於上午 10:29 以前，抵達樂天世界大門口完成刷卡入場。",
+                events: [
+                    { time: "08:30 - 09:30", title: "早餐與移動至奧西利亞", transport: { public: "地鐵1號線(西面站) → 教大站 轉 東海線 → 奧西利亞站 → 步行15分鐘。約50分，₩1,500", uber: "約35分，約₩22,000" } },
+                    { time: "09:30 - 10:20", title: "抵達樂天世界排隊與入場", transport: { text: "抵達大門口準備刷電子票券" } },
+                    { time: "10:20 - 15:00", title: "樂天世界 (壓線刷入)", korean: "롯데월드 어드벤처 부산", note: "入場後可無限暢玩至離開為止", isPass: true, passLabel: "PASS 10 壓軸", mapLink: "https://map.naver.com/p/search/롯데월드%20어드벤처%20부산", transport: { text: "午餐於園區內享用。" } },
+                    { time: "15:00 - 15:15", title: "移動至 Lotte Premium Outlets", transport: { text: "樂天世界正門過馬路即可抵達 Outlet。" } },
+                    { time: "15:15 - 17:15", title: "Lotte Premium Outlets 東釜山店", korean: "롯데프리미엄아울렛 동부산점", stay: "停留2小時", mapLink: "https://map.naver.com/p/search/롯데프리미엄아울렛%20동부산점", transport: { text: "於商場內購物逛街，或在商場內的咖啡廳休息。" } },
+                    { time: "17:15 - 18:15", title: "返回西面 / 田浦", transport: { public: "東海線(奧西利亞站) → 教大站 轉 地鐵1號線 → 西面/田浦站。約50分", uber: "約40分，約₩25,000" } },
+                    { time: "18:15 - 20:15", title: "晚餐與田浦咖啡街", korean: "전포카페거리", mapLink: "https://map.naver.com/p/search/전포카페거리", transport: { text: "於田浦咖啡街周邊挑選特色餐廳享用晚餐。" } }
+                ]
+            }
+        ];
+
+        // 2. SVG 圖示 (替換原先的 lucide-react)
+        const icons = {
+            NavigationLg: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>`,
+            NavigationSm: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>`,
+            Clock: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`,
+            Ticket: `<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M13 5v2"/><path d="M13 17v2"/><path d="M13 11v2"/></svg>`,
+            Info: `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>`,
+            MapPin: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>`,
+            ExternalLink: `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>`,
+            Train: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="16" x="4" y="3" rx="2"/><path d="M4 11h16"/><path d="M12 3v8"/><path d="m8 19-2 3"/><path d="m18 22-2-3"/><path d="M8 15h0"/><path d="M16 15h0"/></svg>`,
+            Car: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg>`,
+            AlertCircle: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>`
+        };
+
+        // 3. 渲染邏輯
+        let activeDay = 1;
+
+        function render() {
+            const currentData = itineraryData.find(d => d.day === activeDay);
+            const app = document.getElementById('app');
+
+            // 產生上方天數分頁 (Tabs)
+            const tabsHtml = itineraryData.map(day => `
+                <button onclick="changeDay(${day.day})" class="whitespace-nowrap flex-1 py-3 px-6 text-center font-medium border-b-4 transition-colors duration-300 ${activeDay === day.day ? 'border-white text-white bg-white/10' : 'border-transparent text-blue-100 hover:text-white hover:bg-white/5'}">
+                    <div class="text-sm opacity-80">${day.date}</div>
+                    <div class="text-base">Day ${day.day}</div>
+                </button>
+            `).join('');
+
+            // 產生當日行程 (Events)
+            const eventsHtml = currentData.events.map(event => {
+                let passHtml = event.isPass ? `<span class="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-blue-100 text-blue-700 border border-blue-200"><span class="mr-1">${icons.Ticket}</span>${event.passLabel}</span>` : '';
+                let stayHtml = event.stay ? `<span class="text-xs font-medium text-slate-500 bg-slate-200/50 px-2 py-1 rounded mt-0 md:mt-2">${event.stay}</span>` : '';
+                let koreanHtml = event.korean ? `<p class="text-sm text-slate-500 mb-3 font-medium">${event.korean}</p>` : '';
+                let noteHtml = event.note ? `<p class="text-sm text-amber-600 bg-amber-50 inline-block px-2 py-1 rounded-md mb-3 flex items-center"><span class="mr-1 inline">${icons.Info}</span>${event.note}</p>` : '';
+                let mapLinkHtml = event.mapLink ? `<a href="${event.mapLink}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-sm text-emerald-600 hover:text-emerald-700 bg-emerald-50 hover:bg-emerald-100 px-3 py-1.5 rounded-lg transition-colors mb-4"><span class="mr-1.5">${icons.MapPin}</span>Naver Map 導航<span class="ml-1.5 opacity-70">${icons.ExternalLink}</span></a>` : '';
+                
+                let transportHtml = '';
+                if (event.transport.public && event.transport.uber) {
+                    transportHtml = `
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <div class="flex items-start">
+                                <span class="text-slate-400 mt-0.5 mr-2 flex-shrink-0">${icons.Train}</span>
+                                <div>
+                                    <span class="font-semibold text-slate-700 block mb-0.5">大眾運輸</span>
+                                    <span class="text-slate-600">${event.transport.public}</span>
+                                </div>
+                            </div>
+                            <div class="flex items-start md:border-l md:border-slate-200 md:pl-3">
+                                <span class="text-slate-400 mt-0.5 mr-2 flex-shrink-0">${icons.Car}</span>
+                                <div>
+                                    <span class="font-semibold text-slate-700 block mb-0.5">Uber / 計程車</span>
+                                    <span class="text-slate-600">${event.transport.uber}</span>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    transportHtml = `
+                        <div class="flex items-start">
+                            <span class="text-slate-400 mt-0.5 mr-2 flex-shrink-0">${icons.NavigationSm}</span>
+                            <span class="text-slate-600">${event.transport.text}</span>
+                        </div>
+                    `;
+                }
+
+                return `
+                <div class="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden hover:shadow-md transition-shadow">
+                    <div class="flex flex-col md:flex-row">
+                        <div class="bg-slate-100 md:bg-white md:border-r border-slate-100 md:w-48 p-4 flex flex-row md:flex-col items-center md:items-start justify-between md:justify-start flex-shrink-0">
+                            <div class="flex items-center text-blue-600 font-bold">
+                                <span class="mr-2">${icons.Clock}</span>
+                                ${event.time}
+                            </div>
+                            ${stayHtml}
+                        </div>
+                        <div class="p-4 md:p-5 flex-1">
+                            <div class="flex flex-wrap items-start justify-between gap-2 mb-2">
+                                <h3 class="text-lg font-bold text-slate-800 flex items-center flex-wrap">
+                                    ${event.title}
+                                    ${passHtml}
+                                </h3>
+                            </div>
+                            ${koreanHtml}
+                            ${noteHtml}
+                            <div>${mapLinkHtml}</div>
+                            <div class="mt-2 bg-slate-50 rounded-lg p-3 text-sm border border-slate-100">
+                                ${transportHtml}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                `;
+            }).join('');
+
+            // 組裝整體 HTML
+            app.innerHTML = `
+                <!-- 頂部導航 -->
+                <header class="bg-gradient-to-r from-blue-600 to-cyan-500 text-white shadow-lg sticky top-0 z-50">
+                    <div class="max-w-4xl mx-auto px-4 py-6">
+                        <h1 class="text-2xl md:text-3xl font-bold mb-2 flex items-center">
+                            <span class="mr-3">${icons.NavigationLg}</span>
+                            釜山五天四夜：前三天精華行程
+                        </h1>
+                        <p class="text-blue-100 text-sm md:text-base">專為 48 小時釜山 PASS 最佳化設計的完美路線</p>
+                    </div>
+                    <div class="flex px-4 max-w-4xl mx-auto overflow-x-auto no-scrollbar">
+                        ${tabsHtml}
+                    </div>
+                </header>
+
+                <!-- 主要內容 -->
+                <main class="max-w-4xl mx-auto px-4 py-8">
+                    <div class="bg-amber-50 border-l-4 border-amber-400 p-4 mb-8 rounded-r-lg shadow-sm flex items-start">
+                        <span class="text-amber-500 mr-3 mt-0.5 flex-shrink-0">${icons.AlertCircle}</span>
+                        <div>
+                            <h3 class="font-bold text-amber-800 mb-1">今日重點與策略</h3>
+                            <p class="text-amber-700 text-sm">${currentData.strategy}</p>
+                        </div>
+                    </div>
+                    <div class="space-y-6">
+                        ${eventsHtml}
+                    </div>
+                </main>
+                
+                <!-- 頁尾 -->
+                <footer class="bg-slate-800 text-slate-400 py-6 text-center text-sm">
+                    <p>祝您有一趟完美的釜山之旅！</p>
+                    <p class="mt-1 opacity-60">此網頁為客製化行程表，請務必搭配 Naver Map App 使用。</p>
+                </footer>
+            `;
+        }
+
+        // 4. 切換天數函數 (綁定至按鈕的 onclick)
+        window.changeDay = function(day) {
+            activeDay = day;
+            render();
+            // 切換時讓頁面捲動回最上方
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+
+        // 5. 初始化渲染
+        render();
+    </script>
+</body>
+</html>
