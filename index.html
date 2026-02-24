@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>釜山五天四夜：前三天精華行程與總覽</title>
+    <title>釜山五天四夜：前三天精華行程與客製交通</title>
     <!-- 引入 Tailwind CSS CDN 以支援樣式 -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -23,48 +23,48 @@
     <div id="app"></div>
 
     <script>
-        // 1. 行程資料 (Itinerary Data - 斜坡滑車移至 Day 1 版)
+        // 1. 行程資料 (Itinerary Data - 包含客製化交通規劃)
         const itineraryData = [
             {
                 day: 1,
                 date: "3/16 (一)",
                 title: "東釜山全制霸 (汗蒸幕+滑車+高空夜景)",
-                strategy: "★ PASS 策略：本日 10:30 於 Spa Land 啟用。⚠️ 膠囊列車需從15:00改預約為16:30班次！",
+                strategy: "★ PASS 策略：10:30 Spa Land 啟用。交通以地鐵為主，僅「斜坡滑車→尾浦站」搭乘 Uber 搶時間。",
                 events: [
-                    { time: "06:00 - 08:00", title: "抵達釜山機場、前往飯店寄放行李", korean: "어반스테이 서면", stay: "停留15分", mapLink: "https://map.naver.com/p/search/어반스테이%20서면", transport: { public: "金海輕軌(機場站) → 沙上站 轉 地鐵2號線 → 西面站。約45分，₩2,100", uber: "約30分，約₩16,000-18,000" } },
-                    { time: "08:00 - 09:00", title: "早餐：松亭三代豬肉湯飯", korean: "송정3대국밥", stay: "停留60分", mapLink: "https://map.naver.com/p/search/송정3대국밥", transport: { text: "從飯店步行約5-8分鐘至豬肉湯飯街" } },
-                    { time: "09:00 - 10:30", title: "移動至新世界百貨 (戰術性等待)", korean: "신세계백화점 센텀시티점", mapLink: "https://map.naver.com/p/search/신세계백화점%20센텀시티점", note: "抵達後先於百貨外圍休息，勿提早入場", transport: { public: "地鐵2號線(西面站) → Centum City站。約30分，₩1,500", uber: "約20分，約₩12,000" } },
-                    { time: "10:30 - 14:30", title: "新世界 Spa Land", korean: "스파랜드 센텀시티", stay: "停留4小時", isPass: true, passLabel: "PASS 啟用", mapLink: "https://map.naver.com/p/search/스파랜드%20센텀시티", transport: { text: "位於新世界百貨內。10:30 準時刷卡入場。" } },
-                    { time: "14:30 - 15:00", title: "移動前往斜坡滑車", transport: { public: "東海線(BEXCO站) → 奧西利亞站。約25分", uber: "約15-20分，約₩9,000" } },
-                    { time: "15:00 - 16:00", title: "Skyline Luge 斜坡滑車", korean: "스카이라인루지 부산", note: "可玩 2 回", stay: "停留1小時", isPass: true, passLabel: "PASS 2", mapLink: "https://map.naver.com/p/search/스카이라인루지%20부산", transport: { text: "洗完澡剛好來吹風滑車，園區內搭乘吊椅上山、滑車下山。" } },
-                    { time: "16:00 - 16:30", title: "移動前往尾浦站", transport: { public: "公車 1001 或 東海線轉乘", uber: "約20分，約₩8,000 (強烈建議搭車確保不遲到)" } },
-                    { time: "16:30 - 17:30", title: "天空膠囊列車", korean: "해운대블루라인파크 미포정거장", note: "強烈建議改預約 16:30 或 17:00 班次", mapLink: "https://map.naver.com/p/search/해운대블루라인파크%20미포정거장", transport: { text: "從尾浦站搭乘至青沙浦站，車程約30分鐘。" } },
-                    { time: "17:30 - 18:15", title: "青沙浦拍照 & 踏石展望台", korean: "청사포 / 청사포다릿돌전망대", stay: "停留45分", mapLink: "https://map.naver.com/p/search/청사포다릿돌전망대", transport: { text: "膠囊列車抵達青沙浦後，沿海岸木棧道步行10-15分鐘至展望台。" } },
-                    { time: "18:15 - 18:45", title: "海邊小火車 (返回尾浦)", korean: "해변열차", isPass: true, passLabel: "PASS 3", transport: { text: "從「踏石展望台站」搭乘海邊小火車返回「尾浦站」。車程約15分。" } },
-                    { time: "18:45 - 20:15", title: "Busan X the SKY (賞百萬夜景)", korean: "부산엑스더스카이", stay: "停留1.5小時", isPass: true, passLabel: "PASS 4", mapLink: "https://map.naver.com/p/search/부산엑스더스카이", transport: { text: "從尾浦站步行約5-8分鐘至LCT大樓入口。剛好可以看完整的釜山夜景！" } },
-                    { time: "20:15 - 21:15", title: "晚餐：the名品海鮮湯", korean: "더명품해물탕조개구이", stay: "停留60分", mapLink: "https://map.naver.com/p/search/더명품해물탕조개구이", transport: { text: "沿海雲台沙灘步道步行約10-15分鐘。" } },
-                    { time: "21:15 - 22:00", title: "返回西面飯店辦理入住", korean: "어반스테이 서면", transport: { public: "步行至地鐵2號線(海雲台站) → 西面站。約35分，₩1,600", uber: "約35分，約₩20,000" } }
+                    { time: "06:00 - 08:00", title: "抵達釜山機場、前往飯店寄放行李", korean: "어반스테이 서면", stay: "停留15分", mapLink: "https://map.naver.com/p/search/어반스테이%20서면", transport: { type: "subway", text: "金海輕軌(機場站) → 沙上站 轉 地鐵2號線 → 西面站。", time: "約 45 分鐘", cost: "₩ 2,100" } },
+                    { time: "08:00 - 09:00", title: "早餐：松亭三代豬肉湯飯", korean: "송정3대국밥", stay: "停留60分", mapLink: "https://map.naver.com/p/search/송정3대국밥", transport: { type: "walk", text: "從飯店步行至豬肉湯飯街。", time: "約 5-8 分鐘", cost: "₩ 0" } },
+                    { time: "09:00 - 10:30", title: "移動至新世界百貨 (戰術性等待)", korean: "신세계백화점 센텀시티점", mapLink: "https://map.naver.com/p/search/신세계백화점%20센텀시티점", note: "抵達後先於百貨外圍休息，勿提早入場", transport: { type: "subway", text: "地鐵2號線(西面站)上車 → Centum City 站下車，出站即達。", time: "約 30 分鐘", cost: "₩ 1,600" } },
+                    { time: "10:30 - 14:30", title: "新世界 Spa Land", korean: "스파랜드 센텀시티", stay: "停留4小時", isPass: true, passLabel: "PASS 啟用", mapLink: "https://map.naver.com/p/search/스파랜드%20센텀시티", transport: { type: "walk", text: "位於新世界百貨內，10:30 準時刷卡入場。" } },
+                    { time: "14:30 - 15:15", title: "移動前往斜坡滑車", transport: { type: "subway", text: "地鐵2號線(Centum City) → BEXCO站轉乘東海線 → 奧西利亞站，下車後步行前往。", time: "約 40 分鐘", cost: "₩ 1,600" } },
+                    { time: "15:15 - 16:15", title: "Skyline Luge 斜坡滑車", korean: "스카이라인루지 부산", note: "可玩 2 回", stay: "停留1小時", isPass: true, passLabel: "PASS 2", mapLink: "https://map.naver.com/p/search/스카이라인루지%20부산", transport: { type: "walk", text: "園區內搭乘吊椅上山、滑車下山。" } },
+                    { time: "16:15 - 16:40", title: "移動前往尾浦站", transport: { type: "uber", text: "從奧西利亞搭乘 Uber 直達尾浦站。此段公車耗時，搭車可確保不遲到！", time: "約 15-20 分鐘", cost: "約 ₩ 8,000 - 10,000" } },
+                    { time: "16:40 - 17:30", title: "天空膠囊列車", korean: "해운대블루라인파크 미포정거장", note: "自費預約 16:30 或 17:00 班次", mapLink: "https://map.naver.com/p/search/해운대블루라인파크%20미포정거장", transport: { type: "walk", text: "搭乘天空膠囊列車 (尾浦 → 青沙浦)。", time: "車程約 30 分鐘", cost: "自費票券" } },
+                    { time: "17:30 - 18:15", title: "青沙浦拍照 & 踏石展望台", korean: "청사포 / 청사포다릿돌전망대", stay: "停留45分", mapLink: "https://map.naver.com/p/search/청사포다릿돌전망대", transport: { type: "walk", text: "膠囊列車抵達青沙浦後，沿海岸木棧道步行至展望台。", time: "約 10-15 分鐘", cost: "₩ 0" } },
+                    { time: "18:15 - 18:45", title: "海邊小火車 (返回尾浦)", korean: "해변열차", isPass: true, passLabel: "PASS 3", transport: { type: "walk", text: "從「踏石展望台站」搭乘海邊小火車返回「尾浦站」。", time: "車程約 15 分鐘", cost: "PASS 涵蓋" } },
+                    { time: "18:45 - 20:15", title: "Busan X the SKY (賞百萬夜景)", korean: "부산엑스더스카이", stay: "停留1.5小時", isPass: true, passLabel: "PASS 4", mapLink: "https://map.naver.com/p/search/부산엑스더스카이", transport: { type: "walk", text: "從尾浦站下車後，沿海雲台沙灘步道步行至 LCT 大樓入口。", time: "約 5-8 分鐘", cost: "₩ 0" } },
+                    { time: "20:15 - 21:15", title: "晚餐：the名品海鮮湯", korean: "더명품해물탕조개구이", stay: "停留60分", mapLink: "https://map.naver.com/p/search/더명품해물탕조개구이", transport: { type: "walk", text: "沿著海雲台沙灘主街散步前往餐廳。", time: "約 10-15 分鐘", cost: "₩ 0" } },
+                    { time: "21:15 - 22:00", title: "返回西面飯店辦理入住", korean: "어반스테이 서면", transport: { type: "subway", text: "步行至地鐵2號線(海雲台站) → 一路搭回西面站。", time: "約 35 分鐘", cost: "₩ 1,600" } }
                 ]
             },
             {
                 day: 2,
                 date: "3/17 (二)",
                 title: "西釜山經典與南區遊艇",
-                strategy: "★ 行程策略：下午多出充裕的時間，可以在南浦洞商圈悠閒吃黑糖餅、逛街！",
+                strategy: "★ 行程策略：今日全線 Uber 戰術！免除西釜山爬坡與公車轉乘的疲累，花小錢買大把時間與體力。",
                 events: [
-                    { time: "08:00 - 09:00", title: "早餐：西面商圈咖啡廳/簡餐", transport: { text: "飯店周邊就近用餐" } },
-                    { time: "09:00 - 10:00", title: "移動前往松島", transport: { public: "地鐵1號線(西面站) → 南浦站(8出口) → 轉公車(6/26/30/71) → 岩南洞居民中心下車。約50分", uber: "約25分，約₩14,000" } },
-                    { time: "10:00 - 11:00", title: "松島海上纜車 & 龍宮雲橋", korean: "송도해상케이블카 / 송도용궁구름다리", isPass: true, passLabel: "PASS 5, 6", mapLink: "https://map.naver.com/p/search/송도해상케이블카", transport: { text: "下車後步行至售票處搭乘纜車，抵達對岸後步行至雲橋。" } },
-                    { time: "11:00 - 12:00", title: "海景咖啡廳：EL16.52", korean: "카페 EL16.52", stay: "停留60分", mapLink: "https://map.naver.com/p/search/EL16.52", transport: { text: "纜車岩南公園站旁，步行3分鐘。" } },
-                    { time: "12:00 - 12:30", title: "移動前往甘川洞文化村", transport: { public: "搭乘71號公車 → 西區廳 轉 沙下區1-1號小巴 → 甘川小學。約45分", uber: "約15分，約₩7,000 (強烈建議搭車)" } },
-                    { time: "12:30 - 14:00", title: "甘川洞文化村 & 手翻書", korean: "감천문화마을 / 움직이는사진상점", stay: "停留1.5小時", isPass: true, passLabel: "PASS 7", mapLink: "https://map.naver.com/p/search/움직이는사진상점", transport: { text: "於村內移動、拍照並製作手翻書。可買小吃墊胃。" } },
-                    { time: "14:00 - 14:30", title: "移動前往釜山塔", transport: { public: "沙下區1-1號小巴 → 土城站 轉 地鐵1號線 → 南浦站。約30分", uber: "約15分，約₩6,000" } },
-                    { time: "14:30 - 16:00", title: "釜山塔 (鑽石塔)", korean: "부산타워", stay: "停留1.5小時", isPass: true, passLabel: "PASS 8", mapLink: "https://map.naver.com/p/search/부산타워", transport: { text: "從南浦洞搭乘手扶梯至龍頭山公園。" } },
-                    { time: "16:00 - 18:00", title: "南浦洞 / BIFF廣場 悠閒逛街", korean: "남포동 / BIFF광장", stay: "停留2小時", note: "新增的悠閒時光！推薦吃元祖堅果黑糖餅", mapLink: "https://map.naver.com/p/search/BIFF광장", transport: { text: "從釜山塔搭手扶梯下來即是南浦洞商圈，可一路逛到札嘎其。" } },
-                    { time: "18:00 - 18:45", title: "移動前往鑽石灣碼頭", transport: { public: "地鐵1號線(南浦站) → 西面站 轉 2號線 → 慶星大·釜慶大站 轉計程車", uber: "約25-30分，約₩12,000" } },
-                    { time: "18:45 - 20:30", title: "鑽石灣遊艇 夜間巡航", korean: "다이아몬드베이", note: "事前預約 19:30 班次，務必 19:00 前報到", isPass: true, passLabel: "PASS 9", mapLink: "https://map.naver.com/p/search/다이아몬드베이", transport: { text: "航程約50分鐘，欣賞廣安大橋夜景。" } },
-                    { time: "20:30 - 21:00", title: "返回西面", transport: { public: "步行至地鐵2號線(南川站) → 西面站。約45分", uber: "約25分，約₩13,000" } },
-                    { time: "21:00 - 22:30", title: "晚餐：83 Haechi", korean: "83해치 서면본점", stay: "停留1.5小時", mapLink: "https://map.naver.com/p/search/83해치%20서면본점", transport: { text: "回到西面商圈步行前往。" } }
+                    { time: "08:00 - 09:00", title: "早餐：西面商圈咖啡廳/簡餐", transport: { type: "walk", text: "飯店周邊就近用餐" } },
+                    { time: "09:00 - 09:30", title: "移動前往松島", transport: { type: "uber", text: "避開上班尖峰，直接從西面搭車到松島灣站售票處。", time: "約 25 分鐘", cost: "約 ₩ 14,000" } },
+                    { time: "09:30 - 10:30", title: "松島海上纜車 & 龍宮雲橋", korean: "송도해상케이블카 / 송도용궁구름다리", isPass: true, passLabel: "PASS 5, 6", mapLink: "https://map.naver.com/p/search/송도해상케이블카", transport: { type: "walk", text: "搭乘纜車至對岸後，步行至雲橋。" } },
+                    { time: "10:30 - 11:30", title: "海景咖啡廳：EL16.52", korean: "카페 EL16.52", stay: "停留60分", mapLink: "https://map.naver.com/p/search/EL16.52", transport: { type: "walk", text: "纜車岩南公園站旁，步行即可抵達。", time: "約 3 分鐘", cost: "₩ 0" } },
+                    { time: "11:30 - 11:50", title: "移動前往甘川洞文化村", transport: { type: "uber", text: "直接搭車前往村口，完美避開公車繞山與爬大陡坡的折磨！", time: "約 15 分鐘", cost: "約 ₩ 7,000" } },
+                    { time: "11:50 - 13:20", title: "甘川洞文化村 & 手翻書", korean: "감천문화마을 / 움직이는사진상점", stay: "停留1.5小時", isPass: true, passLabel: "PASS 7", mapLink: "https://map.naver.com/p/search/움직이는사진상점", transport: { type: "walk", text: "於村內移動、拍照並製作手翻書。可買小吃墊胃。" } },
+                    { time: "13:20 - 13:40", title: "移動前往釜山塔", transport: { type: "uber", text: "沿著山路往下開，請司機停在南浦洞龍頭山公園的手扶梯入口附近。", time: "約 15 分鐘", cost: "約 ₩ 6,000" } },
+                    { time: "13:40 - 15:10", title: "釜山塔 (鑽石塔)", korean: "부산타워", stay: "停留1.5小時", isPass: true, passLabel: "PASS 8", mapLink: "https://map.naver.com/p/search/부산타워", transport: { type: "walk", text: "搭乘手扶梯至龍頭山公園上塔。" } },
+                    { time: "15:10 - 17:10", title: "南浦洞 / BIFF廣場 悠閒逛街", korean: "남포동 / BIFF광장", stay: "停留2小時", note: "推薦吃元祖堅果黑糖餅", mapLink: "https://map.naver.com/p/search/BIFF광장", transport: { type: "walk", text: "從釜山塔搭手扶梯下山即是南浦洞商圈，可一路逛到札嘎其。" } },
+                    { time: "17:10 - 17:40", title: "移動前往鑽石灣碼頭", transport: { type: "uber", text: "傍晚途經釜山港大橋，直達遊艇碼頭 (車資可能含小額過路費)。", time: "約 25-30 分鐘", cost: "約 ₩ 12,000 - 14,000" } },
+                    { time: "17:40 - 19:30", title: "鑽石灣遊艇 夜間巡航", korean: "다이아몬드베이", note: "事前預約 19:30 班次，務必 19:00 前報到", isPass: true, passLabel: "PASS 9", mapLink: "https://map.naver.com/p/search/다이아몬드베이", transport: { type: "walk", text: "航程約50分鐘，欣賞廣安大橋夜景。" } },
+                    { time: "19:30 - 20:00", title: "返回西面 (前往晚餐)", transport: { type: "uber", text: "吹完海風舒舒服服搭車，直達 83Haechi 烤肉店門口！", time: "約 20-25 分鐘", cost: "約 ₩ 13,000" } },
+                    { time: "20:00 - 21:30", title: "晚餐：83 Haechi 西面本店", korean: "83해치 서면본점", stay: "停留1.5小時", mapLink: "https://map.naver.com/p/search/83해치%20서면본점", transport: { type: "walk", text: "西面最熱門烤肉店，用完美大餐結束一天。" } }
                 ]
             },
             {
@@ -73,13 +73,13 @@
                 title: "樂天世界與機張購物",
                 strategy: "★ PASS 策略：務必於上午 10:29 以前，抵達樂天世界大門口完成刷卡入場。",
                 events: [
-                    { time: "08:30 - 09:30", title: "早餐與移動至奧西利亞", transport: { public: "地鐵1號線(西面站) → 教大站 轉 東海線 → 奧西利亞站 → 步行15分鐘。約50分，₩1,500", uber: "約35分，約₩22,000" } },
-                    { time: "09:30 - 10:20", title: "抵達樂天世界排隊與入場", transport: { text: "抵達大門口準備刷電子票券" } },
-                    { time: "10:20 - 15:00", title: "樂天世界 (壓線刷入)", korean: "롯데월드 어드벤처 부산", note: "入場後可無限暢玩至離開為止", isPass: true, passLabel: "PASS 10 壓軸", mapLink: "https://map.naver.com/p/search/롯데월드%20어드벤처%20부산", transport: { text: "午餐於園區內享用。" } },
-                    { time: "15:00 - 15:15", title: "移動至 Lotte Premium Outlets", transport: { text: "樂天世界正門過馬路即可抵達 Outlet。" } },
-                    { time: "15:15 - 17:15", title: "Lotte Premium Outlets 東釜山店", korean: "롯데프리미엄아울렛 동부산점", stay: "停留2小時", mapLink: "https://map.naver.com/p/search/롯데프리미엄아울렛%20동부산점", transport: { text: "於商場內購物逛街，或在商場內的咖啡廳休息。" } },
-                    { time: "17:15 - 18:15", title: "返回西面 / 田浦", transport: { public: "東海線(奧西利亞站) → 教大站 轉 地鐵1號線 → 西面/田浦站。約50分", uber: "約40分，約₩25,000" } },
-                    { time: "18:15 - 20:15", title: "晚餐與田浦咖啡街", korean: "전포카페거리", mapLink: "https://map.naver.com/p/search/전포카페거리", transport: { text: "於田浦咖啡街周邊挑選特色餐廳享用晚餐。" } }
+                    { time: "08:30 - 09:30", title: "早餐與移動至奧西利亞", transport: { type: "subway", text: "地鐵1號線(西面站) → 教大站轉乘東海線 → 奧西利亞站，步行約15分鐘抵達大門。", time: "約 50-60 分鐘", cost: "₩ 1,600" } },
+                    { time: "09:30 - 10:20", title: "抵達樂天世界排隊與入場", transport: { type: "walk", text: "抵達大門口準備刷電子票券。" } },
+                    { time: "10:20 - 15:00", title: "樂天世界 (壓線刷入)", korean: "롯데월드 어드벤처 부산", note: "入場後可無限暢玩至離開為止", isPass: true, passLabel: "PASS 10 壓軸", mapLink: "https://map.naver.com/p/search/롯데월드%20어드벤처%20부산", transport: { type: "walk", text: "午餐於園區內享用。" } },
+                    { time: "15:00 - 15:15", title: "移動至 Lotte Premium Outlets", transport: { type: "walk", text: "樂天世界正門過馬路即可抵達 Outlet。" } },
+                    { time: "15:15 - 17:15", title: "Lotte Premium Outlets 東釜山店", korean: "롯데프리미엄아울렛 동부산점", stay: "停留2小時", mapLink: "https://map.naver.com/p/search/롯데프리미엄아울렛%20동부산점", transport: { type: "walk", text: "於商場內購物逛街，或在商場內的咖啡廳休息。" } },
+                    { time: "17:15 - 18:15", title: "返回西面 / 田浦", transport: { type: "subway", text: "東海線(奧西利亞站) → 教大站轉乘地鐵1號線 → 西面/田浦站。", time: "約 50-60 分鐘", cost: "₩ 1,600" } },
+                    { time: "18:15 - 20:15", title: "晚餐與田浦咖啡街", korean: "전포카페거리", mapLink: "https://map.naver.com/p/search/전포카페거리", transport: { type: "walk", text: "於田浦咖啡街周邊挑選特色餐廳享用晚餐。" } }
                 ]
             }
         ];
@@ -87,14 +87,11 @@
         // 2. SVG 圖示庫
         const icons = {
             NavigationLg: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>`,
-            NavigationSm: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>`,
             Clock: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`,
             Ticket: `<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M13 5v2"/><path d="M13 17v2"/><path d="M13 11v2"/></svg>`,
             Info: `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>`,
             MapPin: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>`,
             ExternalLink: `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>`,
-            Train: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="16" x="4" y="3" rx="2"/><path d="M4 11h16"/><path d="M12 3v8"/><path d="m8 19-2 3"/><path d="m18 22-2-3"/><path d="M8 15h0"/><path d="M16 15h0"/></svg>`,
-            Car: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg>`,
             AlertCircle: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>`,
             Map: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" x2="9" y1="3" y2="18"/><line x1="15" x2="15" y1="6" y2="21"/></svg>`,
             Calendar: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>`,
@@ -102,12 +99,12 @@
         };
 
         // 3. 渲染邏輯
-        let activeDay = 1; // 預設顯示第一天，若為 'summary' 則顯示總覽
+        let activeDay = 1;
 
         function render() {
             const app = document.getElementById('app');
 
-            // 產生上方天數分頁 (包含總覽頁)
+            // 產生上方天數分頁
             const daysTabs = [1, 2, 3].map(day => {
                 const d = itineraryData.find(x => x.day === day);
                 const isActive = activeDay === day;
@@ -147,36 +144,36 @@
                                     <div class="flex flex-wrap items-center gap-y-3 text-sm md:text-base">
                                         <span class="px-3 py-1.5 bg-slate-100 text-slate-700 rounded-lg font-medium shadow-sm">📍 西面飯店</span>
                                         <span class="text-slate-300 px-2">➔</span>
-                                        <span class="px-3 py-1.5 bg-blue-50 text-blue-700 rounded-lg font-bold border border-blue-200 shadow-sm">🧖 Spa Land</span>
+                                        <span class="px-3 py-1.5 bg-blue-50 text-blue-700 rounded-lg font-bold border border-blue-200 shadow-sm">🚇 Spa Land</span>
                                         <span class="text-slate-300 px-2">➔</span>
-                                        <span class="px-3 py-1.5 bg-blue-50 text-blue-700 rounded-lg font-bold border border-blue-200 shadow-sm">🏎️ 斜坡滑車</span>
+                                        <span class="px-3 py-1.5 bg-blue-50 text-blue-700 rounded-lg font-bold border border-blue-200 shadow-sm">🚇 斜坡滑車</span>
                                         <span class="text-slate-300 px-2">➔</span>
-                                        <span class="px-3 py-1.5 bg-amber-50 text-amber-700 rounded-lg font-bold border border-amber-200 shadow-sm">🚡 膠囊列車</span>
+                                        <span class="px-3 py-1.5 bg-amber-50 text-amber-700 rounded-lg font-bold border border-amber-200 shadow-sm">🚕 膠囊列車</span>
                                         <span class="text-slate-300 px-2">➔</span>
-                                        <span class="px-3 py-1.5 bg-blue-50 text-blue-700 rounded-lg font-bold border border-blue-200 shadow-sm">🏙️ X the SKY</span>
+                                        <span class="px-3 py-1.5 bg-emerald-50 text-emerald-700 rounded-lg font-bold border border-emerald-200 shadow-sm">🚶 X the SKY</span>
                                         <span class="text-slate-300 px-2">➔</span>
-                                        <span class="px-3 py-1.5 bg-slate-100 text-slate-700 rounded-lg font-medium shadow-sm">📍 西面飯店</span>
+                                        <span class="px-3 py-1.5 bg-slate-100 text-slate-700 rounded-lg font-medium shadow-sm">🚇 回西面飯店</span>
                                     </div>
                                 </div>
                                 
                                 <!-- Day 2 -->
-                                <div class="relative pl-6 border-l-2 border-emerald-400">
-                                    <div class="absolute w-4 h-4 bg-emerald-500 rounded-full -left-[9px] top-1 ring-4 ring-white shadow-sm"></div>
-                                    <h3 class="font-bold text-lg text-emerald-800 mb-3">Day 2：西釜山經典與南區遊艇</h3>
+                                <div class="relative pl-6 border-l-2 border-amber-400">
+                                    <div class="absolute w-4 h-4 bg-amber-500 rounded-full -left-[9px] top-1 ring-4 ring-white shadow-sm"></div>
+                                    <h3 class="font-bold text-lg text-amber-800 mb-3">Day 2：西釜山與南區 (全線 Uber)</h3>
                                     <div class="flex flex-wrap items-center gap-y-3 text-sm md:text-base">
                                         <span class="px-3 py-1.5 bg-slate-100 text-slate-700 rounded-lg font-medium shadow-sm">📍 西面飯店</span>
                                         <span class="text-slate-300 px-2">➔</span>
-                                        <span class="px-3 py-1.5 bg-blue-50 text-blue-700 rounded-lg font-bold border border-blue-200 shadow-sm">🚠 松島纜車</span>
+                                        <span class="px-3 py-1.5 bg-amber-50 text-amber-700 rounded-lg font-bold border border-amber-200 shadow-sm">🚕 松島纜車</span>
                                         <span class="text-slate-300 px-2">➔</span>
-                                        <span class="px-3 py-1.5 bg-blue-50 text-blue-700 rounded-lg font-bold border border-blue-200 shadow-sm">🏘️ 甘川洞文化村</span>
+                                        <span class="px-3 py-1.5 bg-amber-50 text-amber-700 rounded-lg font-bold border border-amber-200 shadow-sm">🚕 甘川文化村</span>
                                         <span class="text-slate-300 px-2">➔</span>
-                                        <span class="px-3 py-1.5 bg-blue-50 text-blue-700 rounded-lg font-bold border border-blue-200 shadow-sm">🗼 釜山塔</span>
+                                        <span class="px-3 py-1.5 bg-amber-50 text-amber-700 rounded-lg font-bold border border-amber-200 shadow-sm">🚕 釜山塔</span>
                                         <span class="text-slate-300 px-2">➔</span>
-                                        <span class="px-3 py-1.5 bg-slate-100 text-slate-700 rounded-lg font-medium shadow-sm">🛍️ 南浦洞</span>
+                                        <span class="px-3 py-1.5 bg-emerald-50 text-emerald-700 rounded-lg font-bold border border-emerald-200 shadow-sm">🚶 南浦洞</span>
                                         <span class="text-slate-300 px-2">➔</span>
-                                        <span class="px-3 py-1.5 bg-blue-50 text-blue-700 rounded-lg font-bold border border-blue-200 shadow-sm">🛥️ 鑽石灣遊艇</span>
+                                        <span class="px-3 py-1.5 bg-amber-50 text-amber-700 rounded-lg font-bold border border-amber-200 shadow-sm">🚕 鑽石灣遊艇</span>
                                         <span class="text-slate-300 px-2">➔</span>
-                                        <span class="px-3 py-1.5 bg-slate-100 text-slate-700 rounded-lg font-medium shadow-sm">📍 西面飯店</span>
+                                        <span class="px-3 py-1.5 bg-slate-100 text-slate-700 rounded-lg font-medium shadow-sm">🚕 回西面晚餐</span>
                                     </div>
                                 </div>
 
@@ -187,11 +184,11 @@
                                     <div class="flex flex-wrap items-center gap-y-3 text-sm md:text-base">
                                         <span class="px-3 py-1.5 bg-slate-100 text-slate-700 rounded-lg font-medium shadow-sm">📍 西面飯店</span>
                                         <span class="text-slate-300 px-2">➔</span>
-                                        <span class="px-3 py-1.5 bg-blue-50 text-blue-700 rounded-lg font-bold border border-blue-200 shadow-sm">🎢 樂天世界</span>
+                                        <span class="px-3 py-1.5 bg-blue-50 text-blue-700 rounded-lg font-bold border border-blue-200 shadow-sm">🚇 樂天世界</span>
                                         <span class="text-slate-300 px-2">➔</span>
-                                        <span class="px-3 py-1.5 bg-slate-100 text-slate-700 rounded-lg font-medium shadow-sm">🛍️ Lotte Outlet</span>
+                                        <span class="px-3 py-1.5 bg-emerald-50 text-emerald-700 rounded-lg font-bold border border-emerald-200 shadow-sm">🚶 Lotte Outlet</span>
                                         <span class="text-slate-300 px-2">➔</span>
-                                        <span class="px-3 py-1.5 bg-slate-100 text-slate-700 rounded-lg font-medium shadow-sm">☕ 田浦咖啡街</span>
+                                        <span class="px-3 py-1.5 bg-slate-100 text-slate-700 rounded-lg font-medium shadow-sm">🚇 回西面/田浦</span>
                                     </div>
                                 </div>
                             </div>
@@ -211,32 +208,16 @@
                                 </ul>
                             </div>
 
-                            <!-- 行前預約提醒 -->
+                            <!-- 交通策略總結 -->
                             <div class="bg-amber-50 border border-amber-100 rounded-xl p-6 shadow-sm">
                                 <h3 class="text-lg font-bold text-amber-800 mb-4 flex items-center">
-                                    <span class="mr-2">${icons.Calendar}</span> 行前預約提醒
+                                    <span class="mr-2">🚕</span> 專屬交通策略 (黃金組合)
                                 </h3>
                                 <ul class="space-y-3 text-sm md:text-base text-amber-900 leading-relaxed">
-                                    <li class="flex items-start"><span class="mr-2 text-amber-500 mt-0.5">⚠️</span> <span><b>天空膠囊列車 (Day 1)：</b> 不包含在 PASS 內。請提早 2-3 週上官網購買 <b>16:30</b> 或 <b>17:00</b> 由尾浦出發的單程票。</span></li>
-                                    <li class="flex items-start"><span class="mr-2 text-amber-500 mt-0.5">⚠️</span> <span><b>鑽石灣遊艇 (Day 2)：</b> 包含在 PASS 內，但需預約。出發前透過 Email 提供 PASS 卡號，預約 <b>19:30</b> 的 Moonlight Tour。</span></li>
+                                    <li class="flex items-start"><span class="mr-2 text-amber-500 mt-0.5">💡</span> <span><b>完美互補：</b>長途/直線交給地鐵 (西面往返機張)，塞車/爬坡交給 Uber (西釜山)。</span></li>
+                                    <li class="flex items-start"><span class="mr-2 text-amber-500 mt-0.5">💡</span> <span><b>預估花費：</b>若 2 人同行，三天包含 Uber 平攤及地鐵票，每人總車資不到 4 萬韓元 (約台幣 1000 內)，極度划算！</span></li>
+                                    <li class="flex items-start"><span class="mr-2 text-amber-500 mt-0.5">💡</span> <span><b>Uber 提醒：</b>可直接用台灣 Uber App 叫車，過廣安大橋等過路費會於下車後自動加計在內。</span></li>
                                 </ul>
-                            </div>
-
-                            <!-- 交通與必備 App -->
-                            <div class="bg-emerald-50 border border-emerald-100 rounded-xl p-6 shadow-sm md:col-span-2">
-                                <h3 class="text-lg font-bold text-emerald-800 mb-4 flex items-center">
-                                    <span class="mr-2">${icons.Smartphone}</span> 交通、預算與必備 App
-                                </h3>
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm md:text-base text-emerald-900 leading-relaxed">
-                                    <ul class="space-y-3">
-                                        <li class="flex items-start"><span class="mr-2 text-emerald-500 mt-0.5">📱</span> <span><b>Naver Map：</b> 韓國不支援 Google Map 導航，務必下載 Naver Map 並註冊帳號，行程表上的綠色按鈕點開即可導航。</span></li>
-                                        <li class="flex items-start"><span class="mr-2 text-emerald-500 mt-0.5">🚕</span> <span><b>Uber 叫車：</b> 打開台灣的 Uber App 即可直接叫一般計程車，系統會自動翻譯地址，綁定的台灣信用卡可直接扣款。</span></li>
-                                    </ul>
-                                    <ul class="space-y-3">
-                                        <li class="flex items-start"><span class="mr-2 text-emerald-500 mt-0.5">💳</span> <span><b>Uber 過路費：</b> 釜山很多收費橋樑 (如廣安大橋)。司機會先用 eTag 扣款，下車後費用會手動加在您的 Uber 帳單中，是正常程序。</span></li>
-                                        <li class="flex items-start"><span class="mr-2 text-emerald-500 mt-0.5">💰</span> <span><b>交通預算：</b> 若長距離皆搭乘 Uber，前三天總計車資約需 ₩150,000~175,000 (約台幣4,000上下)，多人分攤非常划算省力。</span></li>
-                                    </ul>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -249,34 +230,53 @@
                     let passHtml = event.isPass ? `<span class="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-blue-100 text-blue-700 border border-blue-200"><span class="mr-1">${icons.Ticket}</span>${event.passLabel}</span>` : '';
                     let stayHtml = event.stay ? `<span class="text-xs font-medium text-slate-500 bg-slate-200/50 px-2 py-1 rounded mt-0 md:mt-2">${event.stay}</span>` : '';
                     let koreanHtml = event.korean ? `<p class="text-sm text-slate-500 mb-3 font-medium">${event.korean}</p>` : '';
-                    let noteHtml = event.note ? `<p class="text-sm text-amber-600 bg-amber-50 inline-block px-2 py-1 rounded-md mb-3 flex items-center"><span class="mr-1 inline-flex flex-shrink-0">${icons.Info}</span><span>${event.note}</span></p>` : '';
+                    let noteHtml = event.note ? `<p class="text-sm text-rose-600 bg-rose-50 border border-rose-100 inline-flex px-2 py-1 rounded-md mb-3 items-center font-medium"><span class="mr-1 inline-flex flex-shrink-0">${icons.Info}</span><span>${event.note}</span></p>` : '';
                     let mapLinkHtml = event.mapLink ? `<a href="${event.mapLink}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-sm text-emerald-600 hover:text-emerald-700 bg-emerald-50 hover:bg-emerald-100 px-3 py-1.5 rounded-lg transition-colors mb-4 shadow-sm border border-emerald-100"><span class="mr-1.5">${icons.MapPin}</span>Naver Map 導航<span class="ml-1.5 opacity-70">${icons.ExternalLink}</span></a>` : '';
                     
+                    // --- 渲染新的交通卡片區塊 ---
                     let transportHtml = '';
-                    if (event.transport.public && event.transport.uber) {
-                        transportHtml = `
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                                <div class="flex items-start">
-                                    <span class="text-slate-400 mt-0.5 mr-2 flex-shrink-0">${icons.Train}</span>
-                                    <div>
-                                        <span class="font-semibold text-slate-700 block mb-0.5">大眾運輸</span>
-                                        <span class="text-slate-600">${event.transport.public}</span>
-                                    </div>
+                    if (event.transport) {
+                        let bgClass = 'bg-slate-50 border-slate-200';
+                        let titleClass = 'text-slate-700';
+                        let methodIcon = '📍';
+                        let methodTitle = '移動方式';
+
+                        if (event.transport.type === 'subway') {
+                            bgClass = 'bg-blue-50 border-blue-200';
+                            titleClass = 'text-blue-800';
+                            methodIcon = '🚇';
+                            methodTitle = '地鐵 / 大眾運輸';
+                        } else if (event.transport.type === 'uber') {
+                            bgClass = 'bg-amber-50 border-amber-300';
+                            titleClass = 'text-amber-900';
+                            methodIcon = '🚕';
+                            methodTitle = 'Uber (強烈推薦)';
+                        } else if (event.transport.type === 'walk') {
+                            bgClass = 'bg-emerald-50 border-emerald-200';
+                            titleClass = 'text-emerald-800';
+                            methodIcon = '🚶';
+                            methodTitle = '步行 / 園區內';
+                        }
+
+                        let timeCostHtml = '';
+                        if (event.transport.time || event.transport.cost) {
+                            timeCostHtml = `
+                                <div class="mt-2 pt-2 border-t border-slate-200/50 flex flex-wrap gap-x-4 gap-y-1 text-xs md:text-sm text-slate-600 font-medium">
+                                    ${event.transport.time ? `<span class="flex items-center"><span class="mr-1 opacity-70">${icons.Clock}</span>預估時間：${event.transport.time}</span>` : ''}
+                                    ${event.transport.cost ? `<span class="flex items-center"><span class="mr-1 opacity-70">💰</span>預估費用：${event.transport.cost}</span>` : ''}
                                 </div>
-                                <div class="flex items-start md:border-l md:border-slate-200 md:pl-3">
-                                    <span class="text-slate-400 mt-0.5 mr-2 flex-shrink-0">${icons.Car}</span>
-                                    <div>
-                                        <span class="font-semibold text-slate-700 block mb-0.5">Uber / 計程車</span>
-                                        <span class="text-slate-600">${event.transport.uber}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        `;
-                    } else {
+                            `;
+                        }
+
                         transportHtml = `
-                            <div class="flex items-start">
-                                <span class="text-slate-400 mt-0.5 mr-2 flex-shrink-0">${icons.NavigationSm}</span>
-                                <span class="text-slate-600">${event.transport.text}</span>
+                            <div class="mt-3 ${bgClass} rounded-lg p-3 md:p-4 border shadow-sm transition-colors">
+                                <div class="font-bold ${titleClass} mb-1.5 flex items-center text-sm md:text-base">
+                                    <span class="mr-1.5 text-lg">${methodIcon}</span> ${methodTitle}
+                                </div>
+                                <div class="text-slate-700 text-sm md:text-base leading-relaxed">
+                                    ${event.transport.text}
+                                </div>
+                                ${timeCostHtml}
                             </div>
                         `;
                     }
@@ -291,9 +291,9 @@
                                 </div>
                                 ${stayHtml}
                             </div>
-                            <div class="p-4 md:p-5 flex-1">
+                            <div class="p-4 md:p-6 flex-1">
                                 <div class="flex flex-wrap items-start justify-between gap-2 mb-2">
-                                    <h3 class="text-lg font-bold text-slate-800 flex items-center flex-wrap">
+                                    <h3 class="text-lg md:text-xl font-bold text-slate-800 flex items-center flex-wrap">
                                         ${event.title}
                                         ${passHtml}
                                     </h3>
@@ -301,9 +301,7 @@
                                 ${koreanHtml}
                                 ${noteHtml}
                                 <div>${mapLinkHtml}</div>
-                                <div class="mt-2 bg-slate-50 rounded-lg p-3 text-sm border border-slate-100">
-                                    ${transportHtml}
-                                </div>
+                                ${transportHtml}
                             </div>
                         </div>
                     </div>
@@ -315,7 +313,7 @@
                         <span class="text-amber-500 mr-3 mt-0.5 flex-shrink-0">${icons.AlertCircle}</span>
                         <div>
                             <h3 class="font-bold text-amber-800 mb-1">今日重點與策略</h3>
-                            <p class="text-amber-700 text-sm">${currentData.strategy}</p>
+                            <p class="text-amber-700 text-sm md:text-base">${currentData.strategy}</p>
                         </div>
                     </div>
                     <div class="space-y-6">
@@ -332,7 +330,7 @@
                             <span class="mr-3">${icons.NavigationLg}</span>
                             釜山五天四夜：前三天精華行程
                         </h1>
-                        <p class="text-blue-100 text-sm md:text-base">專為 48 小時釜山 PASS 最佳化設計的完美路線</p>
+                        <p class="text-blue-100 text-sm md:text-base">專為 48 小時釜山 PASS 與您專屬的交通策略打造</p>
                     </div>
                     <div class="flex px-4 max-w-4xl mx-auto overflow-x-auto no-scrollbar">
                         ${tabsHtml}
